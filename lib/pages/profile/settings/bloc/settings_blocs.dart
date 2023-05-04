@@ -6,7 +6,7 @@ class SettingsBlocs extends Bloc<SettingsEvents, SettingsStates> {
   SettingsBlocs() : super(const SettingsStates()) {
     on<TriggerSettings>(_triggerSettings);
   }
-  _triggerSettings(SettingsEvents events, Emitter<SettingsStates> emit) {
-    emit(const SettingsStates());
+  void _triggerSettings(TriggerSettings event, Emitter<SettingsStates> emit) {
+    emit(state.copyWith(index: event.index));
   }
 }

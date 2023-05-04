@@ -3,7 +3,7 @@ import 'dart:ui';
 class AutoBeresColors {
   static const Color primaryColor = Color(0xffFFDC61);
   static const Color primaryBackgroundColor = Color(0xff1C1C1C);
-  static const Color greytransTextColor = Color(0xffE9E9E9);
+  static const Color greytransTextColor = Color(0xff808080);
 }
 
 class AppColors {

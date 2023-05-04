@@ -21,16 +21,21 @@ AppBar buildAppBar() {
           child: Image.asset("assets/icons/menu.png"),
         ),
         _titleHome(),
-        GestureDetector(
-          child: Container(
-            width: 40.w,
-            height: 40.h,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/icons/person.png"))),
-          ),
-        )
+        _avatarUser()
       ]),
+    ),
+  );
+}
+
+Widget _avatarUser() {
+  return GestureDetector(
+    onTap: () {},
+    child: Container(
+      width: 40.w,
+      height: 40.h,
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          image: DecorationImage(image: AssetImage("assets/icons/fumaru.png"))),
     ),
   );
 }
@@ -121,9 +126,15 @@ Widget searchView() {
           height: 40.h,
           decoration: BoxDecoration(
             color: AutoBeresColors.primaryColor,
-            borderRadius: BorderRadius.all(Radius.circular(13.w)),
+            border: Border.all(color: Colors.black, width: 2.w),
+            borderRadius: BorderRadius.all(
+              Radius.circular(13.w),
+            ),
           ),
-          child: Image.asset("assets/icons/options.png"),
+          child: Image.asset(
+            "assets/icons/options.png",
+            color: Colors.black,
+          ),
         ),
       )
     ],

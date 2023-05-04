@@ -2,6 +2,7 @@ import 'package:bloc_flutter/common/values/colors.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_blocs.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_states.dart';
 import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
+import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,11 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage("assets/images/Autoberesbackground.png"))),
+      decoration: reusableBackground(),
       child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: buildAppBar(),

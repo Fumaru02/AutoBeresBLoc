@@ -9,8 +9,6 @@ Widget buildPage(int index) {
   List<Widget> widget = [
     const HomePage(),
     Center(child: Text("Search")),
-    Center(child: Text("Course")),
-    Center(child: Text("Chat")),
     const ProfilePage(),
   ];
 
@@ -45,36 +43,6 @@ var bottomTabs = [
         height: 15.h,
         child: Image.asset(
           "assets/icons/search2.png",
-          color: Colors.white,
-        ),
-      )),
-  BottomNavigationBarItem(
-      label: "course",
-      icon: SizedBox(
-        width: 15.w,
-        height: 15.h,
-        child: Image.asset("assets/icons/play-circle1.png"),
-      ),
-      activeIcon: SizedBox(
-        width: 15.w,
-        height: 15.h,
-        child: Image.asset(
-          "assets/icons/play-circle1.png",
-          color: Colors.white,
-        ),
-      )),
-  BottomNavigationBarItem(
-      label: "chat",
-      icon: SizedBox(
-        width: 15.w,
-        height: 15.h,
-        child: Image.asset("assets/icons/message-circle.png"),
-      ),
-      activeIcon: SizedBox(
-        width: 15.w,
-        height: 15.h,
-        child: Image.asset(
-          "assets/icons/message-circle.png",
           color: Colors.white,
         ),
       )),

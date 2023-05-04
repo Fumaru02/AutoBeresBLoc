@@ -52,15 +52,19 @@ Widget _reusableIcons(String iconName) {
 }
 
 Widget reusableText(String text,
-    {double fontSize = 32, Color colorDef = AutoBeresColors.primaryColor}) {
+    {double bottom = 5,
+    double fontSize = 32,
+    double top = 0,
+    FontWeight fontWeight = FontWeight.bold,
+    Color colorDef = AutoBeresColors.primaryColor}) {
   return Container(
-    margin: EdgeInsets.only(bottom: 5.h),
+    margin: EdgeInsets.only(bottom: bottom.h, top: top.h),
     child: Text(
       text,
       maxLines: 2,
       textAlign: TextAlign.center,
       style: TextStyle(
-          color: colorDef, fontWeight: FontWeight.bold, fontSize: fontSize),
+          color: colorDef, fontWeight: fontWeight, fontSize: fontSize),
     ),
   );
 }
