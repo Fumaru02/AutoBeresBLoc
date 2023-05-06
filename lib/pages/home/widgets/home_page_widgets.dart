@@ -10,19 +10,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 AppBar buildAppBar() {
   return AppBar(
+    //drawer icon
+    leading: Builder(
+      builder: (context) => IconButton(
+          onPressed: () => Scaffold.of(context).openDrawer(),
+          icon: const Icon(
+            Icons.menu,
+            color: Colors.white,
+          )),
+    ),
     backgroundColor: Colors.black.withOpacity(0.9),
     title: Container(
       color: Colors.transparent,
       margin: EdgeInsets.only(left: 7.w, right: 7.w),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        SizedBox(
-          width: 15.w,
-          height: 12.h,
-          child: Image.asset("assets/icons/menu.png"),
-        ),
-        _titleHome(),
-        _avatarUser()
-      ]),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [_titleHome(), _avatarUser()]),
     ),
   );
 }
@@ -155,9 +158,9 @@ Widget slidersView(BuildContext context, HomePageStates state) {
             context.read<HomePageBlocs>().add(HomePageDots(value));
           },
           children: [
-            _slidersContainer(path: "assets/icons/art.png"),
-            _slidersContainer(path: "assets/icons/Image_1.png"),
-            _slidersContainer(path: "assets/icons/Image_2.png"),
+            _slidersContainer(path: "assets/images/mechanic-fix.jpg"),
+            _slidersContainer(path: "assets/images/car-accessories.jpg"),
+            _slidersContainer(path: "assets/images/mechanic-work.jpg"),
           ],
         ),
       ),
@@ -247,37 +250,46 @@ Widget courseGrid() {
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.w),
         image: const DecorationImage(
-            fit: BoxFit.fill, image: AssetImage("assets/icons/Image_1.png"))),
+            fit: BoxFit.fill,
+            image: AssetImage("assets/images/mechanic-work.jpg"))),
     child: Container(
       padding: EdgeInsets.all(12.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Best course for IT",
-            maxLines: 1,
-            overflow: TextOverflow.fade,
-            textAlign: TextAlign.left,
-            softWrap: false,
-            style: TextStyle(
-                color: AppColors.primaryElementText,
-                fontWeight: FontWeight.bold,
-                fontSize: 11.sp),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Text(
-            "FLutter best course",
-            maxLines: 1,
-            overflow: TextOverflow.fade,
-            textAlign: TextAlign.left,
-            softWrap: false,
-            style: TextStyle(
-                color: AppColors.primaryFourElementText,
-                fontWeight: FontWeight.normal,
-                fontSize: 8.sp),
+          Container(
+            color: AutoBeresColors.primaryBackgroundColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Best WorkShop",
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                  textAlign: TextAlign.left,
+                  softWrap: false,
+                  style: TextStyle(
+                      color: AutoBeresColors.primaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.sp),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  "Experienced Mechanic",
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                  textAlign: TextAlign.left,
+                  softWrap: false,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 8.sp),
+                ),
+              ],
+            ),
           ),
         ],
       ),

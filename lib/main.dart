@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'global.dart';
 
 Future<void> main() async {
+  //firebase integration
   await Global.init();
   runApp(const MyApp());
 }
@@ -16,7 +17,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // This widget is the root of application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

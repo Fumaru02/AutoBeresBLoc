@@ -1,4 +1,5 @@
 import 'package:bloc_flutter/pages/home/home_page.dart';
+import 'package:bloc_flutter/pages/main_page/main_page.dart';
 import 'package:bloc_flutter/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +9,7 @@ import '../../common/values/colors.dart';
 Widget buildPage(int index) {
   List<Widget> widget = [
     const HomePage(),
-    Center(child: Text("Search")),
+    const ModulePage(),
     const ProfilePage(),
   ];
 
@@ -32,17 +33,20 @@ var bottomTabs = [
         ),
       )),
   BottomNavigationBarItem(
-      label: "search",
+      label: "modules",
       icon: SizedBox(
-        width: 15.w,
-        height: 15.h,
-        child: Image.asset("assets/icons/search2.png"),
+        width: 29.w,
+        height: 29.h,
+        child: Image.asset(
+          "assets/icons/modules.png",
+          color: Colors.grey,
+        ),
       ),
       activeIcon: SizedBox(
-        width: 15.w,
-        height: 15.h,
+        width: 29.w,
+        height: 29.h,
         child: Image.asset(
-          "assets/icons/search2.png",
+          "assets/icons/modules.png",
           color: Colors.white,
         ),
       )),

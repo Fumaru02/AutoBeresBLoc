@@ -1,6 +1,5 @@
 import 'package:bloc_flutter/common/values/colors.dart';
 import 'package:bloc_flutter/common/values/constant.dart';
-import 'package:bloc_flutter/main.dart';
 import 'package:bloc_flutter/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:bloc_flutter/pages/welcome/bloc/welcome_events.dart';
 import 'package:bloc_flutter/pages/welcome/bloc/welcome_states.dart';
@@ -91,7 +90,7 @@ class _WelcomeState extends State<Welcome> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           width: 325.w,
           child: Column(
             children: [

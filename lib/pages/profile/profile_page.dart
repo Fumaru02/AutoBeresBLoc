@@ -1,15 +1,10 @@
-import 'dart:ui';
-
 import 'package:bloc_flutter/common/values/colors.dart';
-import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:bloc_flutter/pages/profile/settings/bloc/settings_blocs.dart';
 import 'package:bloc_flutter/pages/profile/settings/bloc/settings_events.dart';
 import 'package:bloc_flutter/pages/profile/widgets/profile_widgets.dart';
 import 'package:bloc_flutter/pages/sign_in/widgets/sign_in_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -38,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                   height: 16.h,
                 ),
-                profileInfo(),
+                _profileInfo(),
                 Container(
                   width: 340.w,
                   height: 340.h,
@@ -61,9 +56,28 @@ class _ProfilePageState extends State<ProfilePage> {
                       context.read<SettingsBlocs>().add(TriggerSettings(value));
                     },
                     children: [
-                      _vehicleDetails(),
-                      _vehicleDetails(),
-                      _vehicleDetails(),
+                      _vehicleDetails(1, context,
+                          vehicleName: "Vario",
+                          vehicleMerk: "Honda",
+                          modelType: "Scooter",
+                          octaneNumber: "RON 90",
+                          plateNumber: "B 3636 FHY",
+                          transmissionType: "Automatic",
+                          vehicleColor: "White",
+                          vehicleBirth: "2022",
+                          path: "assets/images/vario.png"),
+                      _vehicleDetails(2, context,
+                          vehicleName: "BMW i Series",
+                          vehicleMerk: "BMW",
+                          modelType: "Sport",
+                          octaneNumber: "RON 95",
+                          plateNumber: "F 2 MAR",
+                          transmissionType: "Automatic",
+                          vehicleColor: "Grey(M)",
+                          vehicleBirth: "2023",
+                          path: "assets/images/bmw.png"),
+                      _vehicleDetails(3, context),
+                      //jadikan tombol berubah status ketika kondisi data sudah terisi
                     ],
                   ),
                 )
@@ -90,18 +104,27 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
 //vehicle data
-  Widget _vehicleDetails({String path = "assets/images/vario.png"}) {
+  Widget _vehicleDetails(int index, BuildContext context,
+      {String vehicleName = "Null",
+      String vehicleMerk = "Merk?",
+      String modelType = "Unknown",
+      String octaneNumber = "Unknown",
+      String transmissionType = "Unknown",
+      String vehicleColor = "Unknown",
+      String vehicleBirth = "Unknown",
+      String plateNumber = "Unknown",
+      String path = "assets/images/prototypeCar.png"}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         reusableText(
-          "Vario 160",
+          vehicleName,
           fontSize: 20,
           top: 16,
           bottom: 0,
           colorDef: Colors.white,
         ),
-        reusableText("Honda",
+        reusableText(vehicleMerk,
             fontSize: 14,
             top: 0,
             colorDef: AutoBeresColors.primaryColor,
@@ -125,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   reusableText("Model Type", fontSize: 12),
-                  reusableText("Scooter", fontSize: 16, colorDef: Colors.white),
+                  reusableText(modelType, fontSize: 16, colorDef: Colors.white),
                 ],
               ),
             ),
@@ -136,7 +159,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   reusableText("Octane Number", fontSize: 12),
-                  reusableText("RON 92", fontSize: 16, colorDef: Colors.white),
+                  reusableText(octaneNumber,
+                      fontSize: 16, colorDef: Colors.white),
                 ],
               ),
             ),
@@ -147,7 +171,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   reusableText("Transmission", fontSize: 12),
-                  reusableText("Automatic",
+                  reusableText(transmissionType,
                       fontSize: 16, colorDef: Colors.white),
                 ],
               ),
@@ -165,7 +189,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   reusableText("Color", fontSize: 12),
-                  reusableText("White", fontSize: 16, colorDef: Colors.white),
+                  reusableText(vehicleColor,
+                      fontSize: 16, colorDef: Colors.white),
                 ],
               ),
             ),
@@ -176,7 +201,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   reusableText("Year", fontSize: 12),
-                  reusableText("2022", fontSize: 16, colorDef: Colors.white),
+                  reusableText(vehicleBirth,
+                      fontSize: 16, colorDef: Colors.white),
                 ],
               ),
             ),
@@ -188,10 +214,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   reusableText("Plate Number", fontSize: 12),
-                  const Text(
-                    "B3523KMK",
+                  Text(
+                    plateNumber,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       fontSize: 16,
@@ -207,7 +233,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget profileInfo() {
+  Widget _profileInfo() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -223,7 +249,8 @@ class _ProfilePageState extends State<ProfilePage> {
           decoration: const BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.all(Radius.circular(15))),
-          child: reusableText("My Vehicles", fontSize: 12, top: 8),
+          child: reusableText("My Collections",
+              fontSize: 12, top: 8, fontWeight: FontWeight.bold),
         )
       ],
     );
