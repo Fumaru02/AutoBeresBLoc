@@ -24,7 +24,7 @@ AppBar buildAppBar() {
       color: Colors.transparent,
       margin: EdgeInsets.only(left: 7.w, right: 7.w),
       child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [_titleHome(), _avatarUser()]),
     ),
   );
@@ -34,11 +34,13 @@ Widget _avatarUser() {
   return GestureDetector(
     onTap: () {},
     child: Container(
-      width: 40.w,
-      height: 40.h,
+      margin: EdgeInsets.only(left: 20.w),
+      width: 30.w,
+      height: 30.h,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
-          image: DecorationImage(image: AssetImage("assets/icons/fumaru.png"))),
+          image: DecorationImage(
+              image: AssetImage("assets/icons/message-square.png"))),
     ),
   );
 }

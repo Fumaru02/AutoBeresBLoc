@@ -22,7 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
       decoration: reusableBackground(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: buildAppbar(),
+        appBar: buildAppbar(context),
         body: SingleChildScrollView(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,

@@ -18,7 +18,7 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-  PageController pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: BlocBuilder<WelcomeBloc, WelcomeState>(
@@ -45,7 +45,7 @@ class _WelcomeState extends State<Welcome> {
                 ),
               ),
               PageView(
-                controller: pageController,
+                controller: _pageController,
                 onPageChanged: (index) {
                   state.page = index;
                   BlocProvider.of<WelcomeBloc>(context).add(WelcomeEvent());
@@ -122,7 +122,7 @@ class _WelcomeState extends State<Welcome> {
         GestureDetector(
           onTap: () {
             if (index < 3) {
-              pageController.animateToPage(index,
+              _pageController.animateToPage(index,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.decelerate);
             } else {

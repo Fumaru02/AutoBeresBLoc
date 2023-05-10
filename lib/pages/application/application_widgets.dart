@@ -1,10 +1,10 @@
 import 'package:bloc_flutter/pages/home/home_page.dart';
-import 'package:bloc_flutter/pages/main_page/main_page.dart';
 import 'package:bloc_flutter/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../common/values/colors.dart';
+import '../features_page/features_page.dart';
 
 Widget buildPage(int index) {
   List<Widget> widget = [

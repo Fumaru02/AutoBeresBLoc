@@ -4,29 +4,25 @@ import 'package:bloc_flutter/pages/widgets/base_text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-AppBar buildAppbar() {
+AppBar buildAppbar(BuildContext context) {
   return AppBar(
     backgroundColor: Colors.black.withOpacity(0.9),
-    title: Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: 18.w,
-            height: 12.h,
-            child: Image.asset("assets/icons/menu.png"),
-          ),
-          reusableTextGlobal("Profile", color: Colors.white),
-          SizedBox(
-            width: 24.w,
-            height: 24.h,
-            child: Image.asset(
-              "assets/icons/more-vertical.png",
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: 18.w,
+          height: 12.h,
+          child: Image.asset("assets/icons/menu.png"),
+        ),
+        reusableTextGlobal("Profile", color: Colors.white),
+        IconButton(
+            onPressed: () => showBottomSheet(
+                  context: context,
+                  builder: (context) => const Text("data"),
+                ),
+            icon: const Icon(Icons.add))
+      ],
     ),
   );
 }

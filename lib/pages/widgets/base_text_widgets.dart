@@ -8,8 +8,13 @@ Widget reusableTextGlobal(String text,
     int fontSize = 16,
     FontWeight fontWeight = FontWeight.bold}) {
   return Text(
+    textAlign: TextAlign.justify,
     text,
-    style:
-        TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize.sp),
+    maxLines: 3,
+    style: TextStyle(
+      color: color,
+      fontWeight: fontWeight,
+      fontSize: fontSize.sp,
+    ),
   );
 }

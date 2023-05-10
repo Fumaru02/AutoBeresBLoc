@@ -1,4 +1,5 @@
 import 'package:bloc_flutter/common/values/colors.dart';
+import 'package:bloc_flutter/pages/features_page/modul/modul.dart';
 import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:flutter/material.dart';
@@ -30,16 +31,34 @@ class _ModulePageState extends State<ModulePage> {
                   crossAxisCount: 1,
                   children: <Widget>[
                     //lanjut bikin konstruktor
-                    _mainPage(
-                        "assets/icons/mekanik2.png",
-                        "assets/icons/module.png",
-                        "Modules\n",
-                        "Materi belajar yang disusun secara sistematis \ndan terstruktur untuk membantu  memahami \ndasar-dasar perbaikan kendaraan."),
-                    _mainPage(
-                        "assets/icons/mekanik1.png",
-                        "assets/icons/module.png",
-                        "Reminder\n",
-                        "Layanan pengingat untuk pemilik kendaraan \nuntuk melakukan servis secara teratur sesuai \ndengan jadwal yang direkomendasikan."),
+                    InkWell(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Modul(),
+                          )),
+                      child: _mainPage(
+                          //background image
+                          "assets/icons/mekanik2.png",
+                          //icon
+                          "assets/icons/module.png",
+                          //Title
+                          "Modules\n",
+                          //Subtitle
+                          "Materi belajar yang disusun secara sistematis \ndan terstruktur untuk membantu  memahami \ndasar-dasar perbaikan kendaraan."),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: _mainPage(
+                          //background image
+                          "assets/icons/mekanik1.png",
+                          //icon
+                          "assets/icons/reminder.png",
+                          //Title
+                          "Reminder\n",
+                          //Subtitle
+                          "Layanan pengingat untuk pemilik kendaraan \nuntuk melakukan servis secara teratur sesuai \ndengan jadwal yang direkomendasikan."),
+                    ),
                   ],
                 ),
               ),
