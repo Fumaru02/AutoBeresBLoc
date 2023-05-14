@@ -2,11 +2,6 @@ import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
-enum Category {
-  car,
-  motorcycle,
-}
-
 class Vehicle {
   final String id;
   final String nameVehicle;
@@ -16,7 +11,6 @@ class Vehicle {
   final String transmission;
   final DateTime year;
   final String plateNumber;
-  final Category category;
 
   Vehicle({
     required this.nameVehicle,
@@ -26,6 +20,5 @@ class Vehicle {
     required this.transmission,
     required this.year,
     required this.plateNumber,
-    required this.category,
   }) : id = uuid.v4();
 }

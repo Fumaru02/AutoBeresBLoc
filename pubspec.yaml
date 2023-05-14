@@ -51,6 +51,7 @@ dependencies:
   equatable: ^2.0.5
   http: ^0.13.6
   uuid: ^3.0.7
+  transparent_image: ^2.0.1
 
 flutter_native_splash:
   color: "#1c1c1c"

@@ -1,5 +1,6 @@
 import 'package:bloc_flutter/common/values/colors.dart';
-import 'package:bloc_flutter/pages/features_page/modul/modul.dart';
+import 'package:bloc_flutter/pages/features_page/modul/modultest.dart';
+import 'package:bloc_flutter/pages/features_page/modul/screens/categories.dart';
 import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _ModulePageState extends State<ModulePage> {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Modul(),
+                            builder: (context) => const CategoriesScreen(),
                           )),
                       child: _mainPage(
                           //background image
