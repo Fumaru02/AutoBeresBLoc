@@ -6,6 +6,7 @@ import 'package:bloc_flutter/pages/home/bloc/home_page_states.dart';
 import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String selectedImagePath = '';
+  String imageURL = '';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -289,6 +291,7 @@ class _HomePageState extends State<HomePage> {
                       InkWell(
                         onTap: () async {
                           selectedImagePath = await selectedImageFromCamera();
+
                           if (selectedImagePath != '') {
                             Navigator.pop(context);
                             setState(() {});
@@ -341,6 +344,18 @@ class _HomePageState extends State<HomePage> {
   selectedImageFromCamera() async {
     XFile? file = await ImagePicker().pickImage(
         source: ImageSource.camera, imageQuality: 50, maxWidth: 150.w);
+
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImage = referenceRoot.child('images');
+    Reference referenceImageToUpload = referenceDirImage.child(uniqueFileName);
+    referenceImageToUpload.putFile(File(file!.path));
+    try {
+      await referenceImageToUpload.putFile(File(file!.path));
+      imageURL = await referenceImageToUpload.getDownloadURL();
+    } catch (error) {
+      //catch error
+    }
     if (file != null) {
       return file.path;
     } else {
