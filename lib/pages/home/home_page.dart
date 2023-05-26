@@ -208,13 +208,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   title: const Text(' About ',
                       style: TextStyle(color: Colors.white)),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+                  onTap: () {},
                 ),
                 ListTile(
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                   leading: const Icon(
                     Icons.logout,
                     color: Colors.white,

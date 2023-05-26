@@ -6,6 +6,7 @@ class StorageService {
 
   Future<StorageService> init() async {
     _prefs = await SharedPreferences.getInstance();
+    await _prefs.clear();
     return this;
   }
 

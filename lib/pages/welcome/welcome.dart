@@ -130,8 +130,8 @@ class _WelcomeState extends State<Welcome> {
               // Navigator.of(context).push(MaterialPageRoute(
               //   builder: (context) => MyHomePage(title: title),
               // ));
-              Global.storageService
-                  .setBool(AppConstants.STORAGE_DEVICE_OPEN_FIRST_TIME, true);
+              // Global.storageService
+              //     .setBool(AppConstants.STORAGE_DEVICE_OPEN_FIRST_TIME, true);
               Navigator.of(context)
                   .pushNamedAndRemoveUntil("/sign_in", (route) => false);
             }
