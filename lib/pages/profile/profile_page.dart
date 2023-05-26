@@ -2,11 +2,15 @@ import 'package:bloc_flutter/common/values/colors.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:bloc_flutter/pages/profile/settings/bloc/settings_blocs.dart';
 import 'package:bloc_flutter/pages/profile/settings/bloc/settings_events.dart';
+import 'package:bloc_flutter/pages/profile/widgets/new2_item.dart';
+import 'package:bloc_flutter/pages/profile/widgets/new_item.dart';
 import 'package:bloc_flutter/pages/profile/widgets/profile_widgets.dart';
 import 'package:bloc_flutter/pages/sign_in/widgets/sign_in_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../widgets/base_text_widgets.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -22,7 +26,41 @@ class _ProfilePageState extends State<ProfilePage> {
       decoration: reusableBackground(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: buildAppbar(context),
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const NewItem2(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            ),
+          ],
+          backgroundColor: Colors.black.withOpacity(0.9),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 18.w,
+                height: 12.h,
+                child: Image.asset("assets/icons/menu.png"),
+              ),
+              reusableTextGlobal("Profile", color: Colors.white),
+              IconButton(
+                  onPressed: () => showBottomSheet(
+                        context: context,
+                        builder: (context) => const Text("data"),
+                      ),
+                  icon: const Icon(Icons.add))
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
           child: SizedBox(
             width: MediaQuery.of(context).size.width,

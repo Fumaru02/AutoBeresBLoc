@@ -1,31 +1,5 @@
-import 'package:bloc_flutter/common/routes/names.dart';
-import 'package:bloc_flutter/common/values/colors.dart';
-import 'package:bloc_flutter/pages/widgets/base_text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-AppBar buildAppbar(BuildContext context) {
-  return AppBar(
-    backgroundColor: Colors.black.withOpacity(0.9),
-    title: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          width: 18.w,
-          height: 12.h,
-          child: Image.asset("assets/icons/menu.png"),
-        ),
-        reusableTextGlobal("Profile", color: Colors.white),
-        IconButton(
-            onPressed: () => showBottomSheet(
-                  context: context,
-                  builder: (context) => const Text("data"),
-                ),
-            icon: const Icon(Icons.add))
-      ],
-    ),
-  );
-}
 
 //profile icon and edit button
 Widget profileIconAndEditButton() {

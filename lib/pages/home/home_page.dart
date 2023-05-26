@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:bloc_flutter/common/values/colors.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_blocs.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_states.dart';
 import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String selectedImagePath = '';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,15 +97,38 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.only(top: 80),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       CircleAvatar(
                         radius: 72,
-                        backgroundImage: AssetImage("assets/icons/fumaru.png"),
+                        child: selectedImagePath == ''
+                            ? Image.asset(
+                                'assets/icons/img.png',
+                                height: 150.h,
+                                width: 150.w,
+                                fit: BoxFit.fill,
+                              )
+                            : Image.file(
+                                File(selectedImagePath),
+                                height: 150.h,
+                                width: 150.w,
+                                fit: BoxFit.fill,
+                              ),
                       ),
-                      SizedBox(
+                      TextButton.icon(
+                        onPressed: () async {
+                          selectImage();
+                          setState(() {});
+                        },
+                        label: const Text(
+                          'Add Image',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        icon: const Icon(Icons.edit_outlined),
+                      ),
+                      const SizedBox(
                         height: 12,
                       ),
-                      Text(
+                      const Text(
                         "Fadilah Umar",
                         style: TextStyle(
                             fontFamily: 'DeliciousHandrawn',
@@ -108,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold,
                             fontSize: 24),
                       ),
-                      Text(
+                      const Text(
                         "fumaruemail@gmail.com",
                         style: TextStyle(
                             color: Colors.grey,
@@ -193,7 +221,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   title: const Text('LogOut',
                       style: TextStyle(color: Colors.white)),
-                  onTap: () {},
+                  onTap: () {
+                    FirebaseAuth.instance.signOut();
+                  },
                 ),
               ],
             ),
@@ -201,5 +231,126 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Future selectImage() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.h)),
+          child: SizedBox(
+            height: 200.h,
+            child: Padding(
+              padding: EdgeInsets.all(12.h),
+              child: Column(
+                children: [
+                  Text(
+                    'Select Image From :',
+                    style:
+                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          selectedImagePath = await selectedImageFromGallery();
+                          print('Image_path:-');
+                          print(selectedImagePath);
+                          if (selectedImagePath != '') {
+                            Navigator.pop(context);
+                            setState(() {});
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('No image selected !'),
+                              ),
+                            );
+                          }
+                        },
+                        child: Card(
+                          elevation: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/icons/photo.png',
+                                  height: 60.h,
+                                  width: 60.w,
+                                ),
+                                const Text('Camera')
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          selectedImagePath = await selectedImageFromCamera();
+                          print('Image_path:-');
+                          print(selectedImagePath);
+                          if (selectedImagePath != '') {
+                            Navigator.pop(context);
+                            setState(() {});
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('No image captured !'),
+                              ),
+                            );
+                          }
+                        },
+                        child: Card(
+                          elevation: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/gallery.png',
+                                  height: 60.h,
+                                  width: 60.w,
+                                ),
+                                const Text('Gallery')
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  selectedImageFromGallery() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+    if (file != null) {
+      return file.path;
+    } else {
+      return '';
+    }
+  }
+
+  selectedImageFromCamera() async {
+    XFile? file = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 10);
+    if (file != null) {
+      return file.path;
+    } else {
+      return '';
+    }
   }
 }

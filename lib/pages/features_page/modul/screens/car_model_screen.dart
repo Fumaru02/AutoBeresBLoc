@@ -1,4 +1,5 @@
 import 'package:bloc_flutter/pages/features_page/modul/model/car_model.dart';
+import 'package:bloc_flutter/pages/features_page/modul/screens/spareparts_details.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,14 @@ class CarParts extends StatelessWidget {
 
   final String title;
   final List<CarModel> carmodels;
+
+  void selectSpareParts(BuildContext context, CarModel carmodel) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => SparePartsDetail(carmodel: carmodel),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +49,9 @@ class CarParts extends StatelessWidget {
           itemCount: carmodels.length,
           itemBuilder: (context, index) => CarItem(
                 carmodel: carmodels[index],
+                onSelectCarModel: (context, carmodel) {
+                  selectSpareParts(context, carmodel);
+                },
               ));
     }
 
