@@ -98,19 +98,19 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        radius: 72,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
                         child: selectedImagePath == ''
                             ? Image.asset(
                                 'assets/icons/img.png',
-                                height: 150.h,
-                                width: 150.w,
+                                height: 100.h,
+                                width: 100.w,
                                 fit: BoxFit.fill,
                               )
                             : Image.file(
                                 File(selectedImagePath),
-                                height: 150.h,
-                                width: 150.w,
+                                height: 100.h,
+                                width: 100.w,
                                 fit: BoxFit.fill,
                               ),
                       ),
@@ -260,8 +260,6 @@ class _HomePageState extends State<HomePage> {
                       InkWell(
                         onTap: () async {
                           selectedImagePath = await selectedImageFromGallery();
-                          print('Image_path:-');
-                          print(selectedImagePath);
                           if (selectedImagePath != '') {
                             Navigator.pop(context);
                             setState(() {});
@@ -269,39 +267,6 @@ class _HomePageState extends State<HomePage> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('No image selected !'),
-                              ),
-                            );
-                          }
-                        },
-                        child: Card(
-                          elevation: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/icons/photo.png',
-                                  height: 60.h,
-                                  width: 60.w,
-                                ),
-                                const Text('Camera')
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () async {
-                          selectedImagePath = await selectedImageFromCamera();
-                          print('Image_path:-');
-                          print(selectedImagePath);
-                          if (selectedImagePath != '') {
-                            Navigator.pop(context);
-                            setState(() {});
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('No image captured !'),
                               ),
                             );
                           }
@@ -323,6 +288,37 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+                      InkWell(
+                        onTap: () async {
+                          selectedImagePath = await selectedImageFromCamera();
+                          if (selectedImagePath != '') {
+                            Navigator.pop(context);
+                            setState(() {});
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('No image captured !'),
+                              ),
+                            );
+                          }
+                        },
+                        child: Card(
+                          elevation: 5,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/icons/photo.png',
+                                  height: 60.h,
+                                  width: 60.w,
+                                ),
+                                const Text('Camera')
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   )
                 ],
@@ -335,8 +331,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   selectedImageFromGallery() async {
-    XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 10);
+    XFile? file = await ImagePicker().pickImage(
+        source: ImageSource.gallery, imageQuality: 50, maxWidth: 150.w);
     if (file != null) {
       return file.path;
     } else {
@@ -345,8 +341,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   selectedImageFromCamera() async {
-    XFile? file = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 10);
+    XFile? file = await ImagePicker().pickImage(
+        source: ImageSource.camera, imageQuality: 50, maxWidth: 150.w);
     if (file != null) {
       return file.path;
     } else {
