@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../common/values/colors.dart';
+import '../../../common/values/colors.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});

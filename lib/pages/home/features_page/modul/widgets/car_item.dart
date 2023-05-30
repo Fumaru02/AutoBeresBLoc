@@ -1,34 +1,35 @@
-import 'package:bloc_flutter/pages/features_page/modul/model/category.dart';
+import 'package:bloc_flutter/pages/home/features_page/modul/models/car_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class CategoryGridItem extends StatelessWidget {
-  const CategoryGridItem(
-      {super.key, required this.category, required this.onSelectedCategory});
+class CarItem extends StatelessWidget {
+  const CarItem(
+      {super.key, required this.carmodel, required this.onSelectCarModel});
 
-  final Category category;
-
-  final void Function() onSelectedCategory;
+  final CarModel carmodel;
+  final void Function(BuildContext context, CarModel carmodel) onSelectCarModel;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(10),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
       ),
       clipBehavior: Clip.hardEdge,
       elevation: 10,
       child: InkWell(
-        onTap: onSelectedCategory,
+        onTap: () {
+          onSelectCarModel(context, carmodel);
+        },
         child: Stack(
           children: [
             FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
-              image: NetworkImage(category.imageURL),
+              image: NetworkImage(carmodel.imageUrl),
               fit: BoxFit.cover,
               height: 230.h,
               width: double.infinity,
@@ -44,7 +45,7 @@ class CategoryGridItem extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      category.title,
+                      carmodel.title,
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       softWrap: true,

@@ -1,11 +1,11 @@
-import 'package:bloc_flutter/pages/features_page/modul/data/dummy_data.dart';
-import 'package:bloc_flutter/pages/features_page/modul/model/category.dart';
-import 'package:bloc_flutter/pages/features_page/modul/screens/car_model_screen.dart';
-import 'package:bloc_flutter/pages/features_page/modul/widgets/category_grid_item.dart';
+import 'package:bloc_flutter/pages/home/features_page/modul/data/dummy_data.dart';
+import 'package:bloc_flutter/pages/home/features_page/modul/models/category.dart';
+import 'package:bloc_flutter/pages/home/features_page/modul/screens/car_model_screen.dart';
+import 'package:bloc_flutter/pages/home/features_page/modul/widgets/category_grid_item.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../widgets/base_text_widgets.dart';
+import '../../../../widgets/base_text_widgets.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});

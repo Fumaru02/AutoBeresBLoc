@@ -1,10 +1,10 @@
-import 'package:bloc_flutter/pages/features_page/modul/model/car_model.dart';
-import 'package:bloc_flutter/pages/features_page/modul/screens/spareparts_details.dart';
+import 'package:bloc_flutter/pages/home/features_page/modul/models/car_model.dart';
+import 'package:bloc_flutter/pages/home/features_page/modul/screens/spareparts_details.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../widgets/base_text_widgets.dart';
+import '../../../../widgets/base_text_widgets.dart';
 import '../widgets/car_item.dart';
 
 class CarParts extends StatelessWidget {

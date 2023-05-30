@@ -1,5 +1,4 @@
 import 'package:bloc_flutter/common/values/colors.dart';
-import 'package:bloc_flutter/common/values/constant.dart';
 import 'package:bloc_flutter/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:bloc_flutter/pages/welcome/bloc/welcome_events.dart';
 import 'package:bloc_flutter/pages/welcome/bloc/welcome_states.dart';
@@ -7,8 +6,6 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../global.dart';
 
 class Welcome extends StatefulWidget {
   const Welcome({super.key});

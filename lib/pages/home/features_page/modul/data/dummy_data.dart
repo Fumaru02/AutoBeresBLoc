@@ -1,7 +1,7 @@
-import 'package:bloc_flutter/pages/features_page/modul/model/car_model.dart';
+import 'package:bloc_flutter/pages/home/features_page/modul/models/car_model.dart';
 import 'package:flutter/material.dart';
 
-import '../model/category.dart';
+import '../models/category.dart';
 
 const availableCategories = [
   Category(

@@ -1,5 +1,6 @@
 import 'package:bloc_flutter/pages/register/bloc/register_blocs.dart';
 import 'package:bloc_flutter/pages/widgets/flutter_toast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,11 @@ class RegisterController {
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(credential.user!.uid)
+          .set({'username': state.userName, 'email': state.email});
 
       if (credential.user != null) {
         await credential.user?.sendEmailVerification();

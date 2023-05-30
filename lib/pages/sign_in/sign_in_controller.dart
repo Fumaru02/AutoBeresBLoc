@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../common/api/user_api.dart';
-import '../../global.dart';
 
 class SignInController {
   final BuildContext context;
@@ -58,9 +57,7 @@ class SignInController {
             ////type 1 means email login
             loginRequestEntity.type = 1;
 
-            print("user open");
             //we got verfied user from firebase
-            print("user exist");
             // asyncPostAllData(loginRequestEntity);
             // Global.storageService
             //     .setString(AppConstants.STORAGE_USER_TOKEN_KEY, "12345678");
