@@ -1,5 +1,5 @@
 import 'package:bloc_flutter/common/values/colors.dart';
-import 'package:bloc_flutter/pages/home/bloc/home_page_blocs.dart';
+import 'package:bloc_flutter/pages/home/bloc/home_page_bloc.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_events.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_states.dart';
 import 'package:bloc_flutter/pages/widgets/base_text_widgets.dart';
@@ -157,7 +157,7 @@ Widget slidersView(BuildContext context, HomePageStates state) {
         height: 160.h,
         child: PageView(
           onPageChanged: (value) {
-            context.read<HomePageBlocs>().add(HomePageDots(value));
+            context.read<HomePageBloc>().add(HomePageDots(value));
           },
           children: [
             _slidersContainer(path: "assets/images/mechanic-fix.jpg"),

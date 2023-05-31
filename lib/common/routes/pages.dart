@@ -2,7 +2,7 @@
 import 'package:bloc_flutter/common/routes/names.dart';
 import 'package:bloc_flutter/pages/application/application_page.dart';
 import 'package:bloc_flutter/pages/application/bloc/app_blocs.dart';
-import 'package:bloc_flutter/pages/home/bloc/home_page_blocs.dart';
+import 'package:bloc_flutter/pages/home/bloc/home_page_bloc.dart';
 import 'package:bloc_flutter/pages/home/screen/home_page.dart';
 import 'package:bloc_flutter/pages/profile/settings/bloc/settings_blocs.dart';
 import 'package:bloc_flutter/pages/profile/settings/settings_page.dart';
@@ -48,7 +48,7 @@ class AppPages {
           route: AppRoutes.HOME_PAGE,
           page: const HomePage(),
           bloc: BlocProvider(
-            create: (_) => HomePageBlocs(),
+            create: (_) => HomePageBloc(),
           )),
       PageEntity(
           route: AppRoutes.SETTINGS,
