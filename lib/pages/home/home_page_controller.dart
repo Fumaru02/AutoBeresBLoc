@@ -27,7 +27,7 @@ class HomePageController {
           referenceDirImage.child(uniqueFileName);
       referenceImageToUpload.putFile(File(file!.path));
       try {
-        await referenceImageToUpload.putFile(File(file!.path));
+        await referenceImageToUpload.putFile(File(file.path));
         imageURL = await referenceImageToUpload.getDownloadURL();
       } catch (error) {
         //catch error
@@ -39,7 +39,7 @@ class HomePageController {
       }
     }
 
-    if (selectedImagePath != '') {
+    if (selectedImagePath == '') {
       selectedImagePath = await selectedImageFromCamera();
       Navigator.pop(context);
     } else {
