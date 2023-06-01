@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:bloc_flutter/pages/home/bloc/home_page_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +14,7 @@ class HomePageController {
   final BuildContext context;
   const HomePageController({required this.context});
 
-  Future<void> handleImagePicker() async {
+  Future<void> handleImagePickerWithCamera() async {
     final state = context.read<HomePageBloc>().state;
     String imageURL = state.imageURL;
     String selectedImagePath = state.selectedImagePath;
@@ -26,9 +29,15 @@ class HomePageController {
       Reference referenceImageToUpload =
           referenceDirImage.child(uniqueFileName);
       referenceImageToUpload.putFile(File(file!.path));
+
       try {
         await referenceImageToUpload.putFile(File(file.path));
         imageURL = await referenceImageToUpload.getDownloadURL();
+
+        final user = FirebaseAuth.instance.currentUser!;
+        FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+          'image_url': imageURL,
+        });
       } catch (error) {
         //catch error
       }
@@ -40,8 +49,8 @@ class HomePageController {
     }
 
     if (selectedImagePath == '') {
-      selectedImagePath = await selectedImageFromCamera();
       Navigator.pop(context);
+      selectedImagePath = await selectedImageFromCamera();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

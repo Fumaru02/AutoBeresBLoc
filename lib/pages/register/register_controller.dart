@@ -40,7 +40,12 @@ class RegisterController {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(credential.user!.uid)
-          .set({'username': state.userName, 'email': state.email});
+          .set(
+        {
+          'username': state.userName,
+          'email': state.email,
+        },
+      );
 
       if (credential.user != null) {
         await credential.user?.sendEmailVerification();

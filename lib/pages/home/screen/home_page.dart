@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:bloc_flutter/common/entities/chat.dart';
 import 'package:bloc_flutter/common/values/colors.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_bloc.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_states.dart';
 import 'package:bloc_flutter/pages/home/home_page_controller.dart';
+import 'package:bloc_flutter/pages/home/screen/chat.dart';
 import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -179,7 +181,9 @@ class _HomePageState extends State<HomePage> {
                   title: const Text(' Chat ',
                       style: TextStyle(color: Colors.white)),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ChatRoom(),
+                    ));
                   },
                 ),
                 ListTile(
@@ -266,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                             setState(() {});
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text('No image selected !'),
                               ),
                             );
@@ -292,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                       InkWell(
                         onTap: () {
                           HomePageController(context: context)
-                              .handleImagePicker();
+                              .handleImagePickerWithCamera();
                         },
                         child: Card(
                           elevation: 5,
