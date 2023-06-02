@@ -4,16 +4,18 @@ import 'package:bloc_flutter/common/entities/chat.dart';
 import 'package:bloc_flutter/common/values/colors.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_bloc.dart';
 import 'package:bloc_flutter/pages/home/bloc/home_page_states.dart';
-import 'package:bloc_flutter/pages/home/home_page_controller.dart';
 import 'package:bloc_flutter/pages/home/screen/chat.dart';
 import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,8 +25,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String selectedImagePath = '';
-  String imageURL = '';
+  File? _pickedImageFile;
+
+  void _pickImage() async {
+    final pickedImage = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 150);
+    if (pickedImage == null) {
+      return;
+    }
+
+    setState(() {
+      _pickedImageFile = File(pickedImage.path);
+    });
+    final user = FirebaseAuth.instance.currentUser!;
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child('user_image')
+        .child('${user.uid}.jpg');
+    await storageRef.putFile(_pickedImageFile!);
+    final imageUrl = await storageRef.getDownloadURL();
+    print(imageUrl);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -103,27 +125,14 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: selectedImagePath == ''
-                            ? Image.asset(
-                                'assets/icons/img.png',
-                                height: 100.h,
-                                width: 100.w,
-                                fit: BoxFit.fill,
-                              )
-                            : Image.file(
-                                File(selectedImagePath),
-                                height: 100.h,
-                                width: 100.w,
-                                fit: BoxFit.fill,
-                              ),
-                      ),
+                      CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Colors.grey,
+                          foregroundImage: _pickedImageFile != null
+                              ? FileImage(_pickedImageFile!)
+                              : null),
                       TextButton.icon(
-                        onPressed: () async {
-                          selectImage();
-                          setState(() {});
-                        },
+                        onPressed: _pickImage,
                         label: const Text(
                           'Add Image',
                           style: TextStyle(color: Colors.white),
@@ -236,103 +245,5 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-
-  Future selectImage() {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.h)),
-          child: SizedBox(
-            height: 200.h,
-            child: Padding(
-              padding: EdgeInsets.all(12.h),
-              child: Column(
-                children: [
-                  Text(
-                    'Select Image From :',
-                    style:
-                        TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          selectedImagePath = await selectedImageFromGallery();
-                          if (selectedImagePath != '') {
-                            Navigator.pop(context);
-                            setState(() {});
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('No image selected !'),
-                              ),
-                            );
-                          }
-                        },
-                        child: Card(
-                          elevation: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/gallery.png',
-                                  height: 60.h,
-                                  width: 60.w,
-                                ),
-                                const Text('Gallery')
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          HomePageController(context: context)
-                              .handleImagePickerWithCamera();
-                        },
-                        child: Card(
-                          elevation: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/icons/photo.png',
-                                  height: 60.h,
-                                  width: 60.w,
-                                ),
-                                const Text('Camera')
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  selectedImageFromGallery() async {
-    XFile? file = await ImagePicker().pickImage(
-        source: ImageSource.gallery, imageQuality: 50, maxWidth: 150.w);
-    if (file != null) {
-      return file.path;
-    } else {
-      return '';
-    }
   }
 }
