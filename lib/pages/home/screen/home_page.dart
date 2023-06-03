@@ -7,6 +7,7 @@ import 'package:bloc_flutter/pages/home/bloc/home_page_states.dart';
 import 'package:bloc_flutter/pages/home/screen/chat.dart';
 import 'package:bloc_flutter/pages/home/widgets/home_page_widgets.dart';
 import 'package:bloc_flutter/pages/home/widgets/reusable_background.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,8 @@ class _HomePageState extends State<HomePage> {
   File? _pickedImageFile;
 
   void _pickImage() async {
-    final pickedImage = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 50, maxWidth: 150);
+    final pickedImage = await ImagePicker().pickImage(
+        source: ImageSource.gallery, imageQuality: 50, maxWidth: 150);
     if (pickedImage == null) {
       return;
     }
@@ -44,7 +45,10 @@ class _HomePageState extends State<HomePage> {
         .child('${user.uid}.jpg');
     await storageRef.putFile(_pickedImageFile!);
     final imageUrl = await storageRef.getDownloadURL();
-    print(imageUrl);
+    await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+      'username': '...',
+      'image_url': imageUrl,
+    });
   }
 
   @override
